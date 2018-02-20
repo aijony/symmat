@@ -13,8 +13,15 @@ class SymMat{
 
   T& operator()(int x, int y);
 
-  int length();
-  int size();
+  int length() const;
+  int size() const;
+
+  template <typename Func>
+    SymMat<T> zipWith(const SymMat<T>& m, Func func);
+  bool checkDim(const SymMat<T>& m);
+
+  SymMat<T> operator+(const SymMat<T>& m);
+  SymMat<T> operator-(const SymMat<T>& m);
 
  private:
   int m_length;

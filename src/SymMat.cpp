@@ -49,13 +49,49 @@ T& SymMat<T>::operator()(int y, int x){
 }
 
 template <typename T>
-int SymMat<T>::length(){
+int SymMat<T>::length() const{
   return m_length;
 }
 
 template <typename T>
-int SymMat<T>::size(){
+int SymMat<T>::size() const{
   return m_size;
 }
+
+template <typename T>
+template <typename Func>
+SymMat<T> SymMat<T>::zipWith(const SymMat<T>& m, Func func){
+  if(!checkDim(m)){
+    std::logic_error("Dimension mismatch");
+  }
+
+  SymMat<T> outM(length());
+
+  for(int i = 0; i < length(); i++){
+    for(int j = 0; j + i < length(); j++){
+      outM.m_data[i][j] = func(this->m_data[i][j], m.m_data[i][j]);
+    }
+  }
+  return outM;
+}
+
+template <typename T>
+bool SymMat<T>::checkDim(const SymMat<T>& m){
+  if(length() == m.length()) {
+    return true;
+  }
+  return false;
+}
+
+template <typename T>
+SymMat<T> SymMat<T>::operator+(const SymMat<T>& m){
+  return zipWith(m, [] (T x, T y) -> T {return (x + y);});
+}
+
+template <typename T>
+SymMat<T> SymMat<T>::operator-(const SymMat<T>& m){
+  return zipWith(m, [] (T x, T y) -> T {return (x - y);});
+}
+
 
 template class SymMat<float>;
