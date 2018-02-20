@@ -2,8 +2,7 @@
 
 using Eigen::Matrix3f;
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv){
   Matrix3f m1;
   m1 <<
     0, 1, 2,

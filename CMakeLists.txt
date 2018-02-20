@@ -25,6 +25,7 @@ enable_testing()
 
 set(tests
   eigen_test
+  symmat_test
   )
 
 list(LENGTH tests temp_len)
