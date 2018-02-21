@@ -2,11 +2,13 @@
 
 #include <Eigen/Core>
 #include <stdexcept>
+#include <iostream>
 
-using namespace Eigen;
+using Eigen::Ref;
+using Eigen::MatrixBase;
 
 template <typename T>
-SymMat<T>::SymMat(const Ref<const Matrix<T, Dynamic, Dynamic>>& m){
+SymMat<T>::SymMat(const Ref<const MATRIX(T)>& m){
   if(m.cols() != m.rows()){
     std::logic_error("Matrix is not square");
   }
@@ -61,7 +63,7 @@ int SymMat<T>::size() const{
 template <typename T>
 template <typename Func>
 SymMat<T> SymMat<T>::zipWith(const SymMat<T>& m, Func func){
-  if(!checkDim(m)){
+  if(length() != m.length()){
     std::logic_error("Dimension mismatch");
   }
 
@@ -76,14 +78,6 @@ SymMat<T> SymMat<T>::zipWith(const SymMat<T>& m, Func func){
 }
 
 template <typename T>
-bool SymMat<T>::checkDim(const SymMat<T>& m){
-  if(length() == m.length()) {
-    return true;
-  }
-  return false;
-}
-
-template <typename T>
 SymMat<T> SymMat<T>::operator+(const SymMat<T>& m){
   return zipWith(m, [] (T x, T y) -> T {return (x + y);});
 }
@@ -93,5 +87,34 @@ SymMat<T> SymMat<T>::operator-(const SymMat<T>& m){
   return zipWith(m, [] (T x, T y) -> T {return (x - y);});
 }
 
+template <typename T>
+template <typename Func>
+MATRIX(T)
+  SymMat<T>::zipWith(const  Eigen::Ref<const MATRIX(T)>& m, Func func){
+  if(this->length() != m.rows() || this->length() != m.cols()){
+    std::logic_error("Dimension mismatch or not square");
+  }
 
+  Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic> outM(length(), length());
+
+   for(int i = 0; i < outM.cols(); i++){
+     for(int j = 0; j < outM.rows(); j++){
+       outM(i, j) = func(this->operator()(i, j), m(i, j));
+     }
+   }
+  return outM;
+}
+
+template <typename T>
+MATRIX(T) SymMat<T>::operator+(const Eigen::Ref<const MATRIX(T)>& m){
+  return zipWith(m, [] (T x, T y) -> T {return (x + y);});
+}
+
+template <typename T>
+MATRIX(T) SymMat<T>::operator-(const Eigen::Ref<const MATRIX(T)>& m){
+  return zipWith(m, [] (T x, T y) -> T {return (x - y);});
+}
+
+template class SymMat<int>;
 template class SymMat<float>;
+template class SymMat<double>;
