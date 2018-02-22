@@ -26,6 +26,13 @@ Which should return:
 
 Meaning the code at least works.
 
+** Evaluation Test
+
+Everything should be clearly laid out in =src/Main.cpp=
+
+test/ just has some unit tests that were used for development,
+they are not currently rigorous or clean.
+
 ** Personal Note
 
 Thank you for looking over my (and hopefully other's) code.
