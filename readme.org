@@ -30,7 +30,7 @@ Meaning the code at least works.
 
 Everything should be clearly laid out in =src/Main.cpp=
 
-test/ just has some unit tests that were used for development,
+=test/= just has some unit tests that were used for development,
 they are not currently rigorous or clean.
 
 ** Personal Note
