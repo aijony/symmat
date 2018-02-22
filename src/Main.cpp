@@ -40,8 +40,8 @@ int main(int argc, char *argv[]){
     4, 5, 6, 7,
     8, 9, 10, 11;
 
-  auto mB = s1 * mA;
-  auto mC = m1 * mA;
+  Eigen::Matrix<float, 3, 4> mB = s1 * mA;
+  Eigen::Matrix<float, 3, 4> mC = m1 * mA;
   if(m1 * mA != s1 * mA){
     throw std::runtime_error("Failed 4");
   }
