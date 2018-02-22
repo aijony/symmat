@@ -25,3 +25,17 @@ Which should return:
 =Test Passed=
 
 Meaning the code at least works.
+
+** Personal Note
+
+Thank you for looking over my (and hopefully other's) code.
+
+Some compromises were made for the sake of getting the project done quicker.
+Very little optimizations were done, and there is obviously a whole summers worth of code left out.
+Hopefully, this code-base will see more work in the future.
+If for some reason, it is found sub-par,
+I would very much appreciate some tips/pointers to improve on it.
+
+Thanks,
+Aidan
+ 
