@@ -1,0 +1,226 @@
+% Created 2018-03-06 Tue 16:39
+% Intended LaTeX compiler: pdflatex
+\documentclass[aps,prl,reprint,groupedaddress,nofootinbib]{revtex4-1}
+                                      \usepackage{tikz-cd}
+                                      \usepackage{hyperref}
+\usepackage{tikz-cd}
+\usepackage{lipsum}
+\usepackage[backend=bibtex,annotation=true,style=verbose]{biblatex}
+\bibliographystyle{plain}
+\bibliography{bibl}
+\author{Aidan Nyquist}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={Aidan Nyquist},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.0.90 (Org mode 9.1.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\begin{abstract}
+Proposal for "Faster matrix algebra for ATLAS" Google Summer of Code, CERN-HSF project.
+The purpose of this project is to increase the
+performance of ATLAS by optimizing its
+symmetric matrix operations.
+This will decrease computing and storage demands,
+and increase speed.
+
+\end{abstract}
+
+\pacs{} \keywords{}
+\author{Aidan J. Nyquist}
+\date{March 2018}
+\title{Faster Matrices}
+\affiliation{CERN-HSF, Google Summer of Code}
+\maketitle
+
+\section{Introduction}
+\label{sec:orgb355bbc}
+
+The Atlas Project uses Eigen extensively.
+However, Eigen handles symmetric matrices inefficiently.
+Since a large portion of Atlas' algorithms are made up of symmetric matrices,
+this project is able to optimize a large niche in code.
+By implementing a symmetric matrix class,
+the storage space, and the complexity of certain algorithms like addition
+of a dense square matrix (\(n \times n\)) originally growing at \(n^2\) becomes \(\frac{n(n+1)}{2}\).
+This approaches a 50\% complexity and memory decrease for larger and larger matrices.
+Of course, not all algorithms become as efficient.
+For example symmetric matrices are not generally closed under matrix multiplication,
+so it would be unreasonable to expect a dramatic speed increase.
+However, the memory decrease alone should be more than enough to justify 
+a symmetric matrix class.
+The algorithm efficiency is just the frosting on the cake.
+
+\section{Project Goals}
+\label{sec:orgbe592dd}
+"A working implementation of symmetric matrices in Eigen,
+ready to be submitted as a patch for Eigen." - \href{http://hepsoftwarefoundation.org/gsoc/2018/proposal\_ATLASEigen.html}{Proposal Page}
+
+\subsection{High Priority}
+\label{sec:orgb4f4658}
+\begin{itemize}
+\item Symmetric Matrix Class
+\item Basic matrix operations
+\item Seamless integration with Eigen Matrices \footnote{There are \emph{a lot} of operations Eigen can perform on matrices. By integrating with Eigen there will be no need to rewrite any algorithms that won't have a direct speedup from a Symmetric Matrix Class.}
+\item Use Eigen conventions and style in code
+\item Decrease in memory cost
+\item Tests
+\item Well documented
+\end{itemize}
+
+\subsection{Medium Priority}
+\label{sec:org5a2f617}
+\begin{itemize}
+\item Increase in performance
+\begin{itemize}
+\item Benchmarks to show improvement
+\end{itemize}
+\item Eigenvalue algorithms
+\item Reusable code
+\end{itemize}
+
+\subsection{Low Priority}
+\label{sec:orgecd57bb}
+\begin{itemize}
+\item Various matrix decompositions
+\item Complex symmetric matrices
+\item Skew-symmetric matrices
+\item Sparse symmetric matrices
+\end{itemize}
+
+\section{Timeline}
+\label{sec:orgd9a6b5f}
+
+The following is a rough outline.
+There is still some research and dialogue to be done before and during the summer.
+Many tasks might bleed back and forth through the timeline as the project progresses
+and new insights are found whilst the project progresses.
+
+\subsection{Pre-Summer}
+\label{sec:org26344dd}
+The best time to get a head start in the project is right now.
+One of the most important things I could do
+is to continue interacting with Eigen library and community.
+That way, I'll have practiced swimming before I have dive into Eigen.
+
+I also will reboot my blog.
+This will give me a way of introducing myself and my project.
+I will also use it as communication platform for the rest of the summer and beyond.
+Meaning at minimum, there will be a blog post for every section outlined in this timeline.
+
+There are many ways of extending Eigen,
+picking the right one first would be more than ideal.
+To make sure I pick the right one first, I will study current Eigen Matrix classes,
+prototype different implementations of classes and methods,
+and engage with the community and my mentors.
+
+\subsection{First Third of Summer}
+\label{sec:orgbf08b9f}
+
+\begin{itemize}
+\item Finish prototyping integration with Eigen (this might prove to be one of the most difficult tasks)
+\item Extend best prototype
+\item Implement most optimal data structure
+\item Implement as many functions as possible 
+\begin{itemize}
+\item Accessors
+\item Arithmetic (+, +=, -, \(\cdot\))
+\item Comparison (\(==\), \(!=\))
+\end{itemize}
+\end{itemize}
+
+\subsection{Second Third of Summer}
+\label{sec:org476deb8}
+
+\begin{itemize}
+\item Continue implementing functions \footnote{Some of these functions will need to be reviewed before being implemented, as there may be no advantage rewriting them.} 
+\begin{itemize}
+\item Inverse
+\item REF / RREF
+\item Eigenvalues \& Eigenvectors
+\begin{itemize}
+\item Research
+\item QR decomposition
+\item Bidiagonalization
+\end{itemize}
+\end{itemize}
+\item Organize tests and write benchmarks
+\item Refactor any poor code
+\item If time allows, begin a low priority task or two
+\end{itemize}
+
+\subsection{Last Third of Summer}
+\label{sec:org74372d0}
+
+\begin{itemize}
+\item If time allows, finish a low priority task or two
+\item Finish any lingering tasks
+\item Prepare and submit patch
+\begin{itemize}
+\item If the patch won't get merged, I will republish the code as a 3rd party plugin.
+\end{itemize}
+\end{itemize}
+
+\subsection{Post-Summer}
+\label{sec:org8957a06}
+If the patch does not initially get accepted,
+or the project runs into roadblocks,
+I plan to see the project through---whatever continuation of dialogue or programming
+that might involve.
+
+Bugs and questions regarding my code are things I plan to watch for a few years.
+I also hope to be able to answer any questions that might arise
+on as many communication platforms as I can watch.
+Any bugs that reveal themselves later in my code, I also plan to fix.
+
+\section{Related Work}
+\label{sec:org0386ff9}
+
+Current support for symmetric matrices in Eigen are in the form of \href{https://eigen.tuxfamily.org/dox/group\_\_QuickRefPage.html\#title15}{views}.
+While these views support optimized algorithms,
+they do not optimize memory in anyway.
+Studying the code for these views will allow 
+insight on how to write optimal matrix algorithms.
+They might also be able to exploited so my class can use their code.
+A few days might be used to consider/implement that possibility. 
+
+There are other popular libraries that have somewhat implemented symmetric matrices:
+the \href{https://www.gnu.org/software/gsl/manual/html\_node/Real-Symmetric-Matrices.html}{GNU Scientific Library}, and \href{http://www.boost.org/doc/libs/1\_66\_0/libs/numeric/ublas/doc/symmetric.html}{Boost uBLAS}.
+Both of these could have code that would prove useful to study.
+Time might be taken during the summer to study this code.
+
+There is lots of academic work related to symmetric matrices.
+While I plan to find all relevant information before the summer,
+some time might be spent during the summer reviewing these resources.
+
+\section{Biographical Information}
+\label{sec:org63b55e6}
+
+I currently pursuing a B.S. in Mathematics and a B.A. in Physics.
+This project sounds more interesting than anything I could dream to do this summer.
+I have a strong passion for programming, mathematics, and physics.
+This project is a beautiful mixture of indirectly contributing to the physics community,
+by directly contributing to the programming community using my mathematics abilities.
+I've taken a couple of couple of linear algebra courses, and have used my programming skills,
+for recreation, open-source contribution, and paid work for a few years now.
+I have prototyped some code for this project already: \href{https://github.com/aijony/symmat}{github.com/aijony/symmat}/
+I feel very qualified to take up this project,
+not only because of my background and hard-skills, but as well as because
+of my relentless passion and drive for projects like these.
+
+\section{Contact Information}
+\label{sec:org9144e37}
+\begin{itemize}
+\item Email: contact@aidannyquist.com
+\item University Email: ajnyquist@northpark.edu
+\item Website (WIP): \href{http://aidannyquist.com}{aidannyquist.com}
+\item IRC/\href{https://github.com/}{GitHub}: aijony
+\item Phone: 971-237-5505
+\item Address: 3580 NW Hill Rd,
+McMinnville, OR 97128
+\end{itemize}
+\end{document}
