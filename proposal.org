@@ -31,7 +31,7 @@
 #+LATEX_HEADER_EXTRA:
 
 
-#+DESCRIPTION:
+#+DESCRIPTION: mv export/proposal.pdf proposal.pdf
 #+KEYWORDS:
 #+SUBTITLE:
 
