@@ -1,9 +1,9 @@
 
 * SymMat Implementation
-A response to a GSoC2018 evaluation test.
-See [[https://github.com/StewMH/GSoC2018/blob/master/evaluation_test.pdf][link]] for evaluation test details.
+A prototype for the CERN-HSF [[http://hepsoftwarefoundation.org/gsoc/2018/proposal_ATLASEigen.html]["Faster matrix algebra for ATLAS"]].
 See my [[https://github.com/aijony/symmat/blob/master/proposal.pdf][proposal]] for this project.
 
+See [[https://github.com/StewMH/GSoC2018/blob/master/evaluation_test.pdf][link]] for evaluation test details.
 ** Requirements
 - =CMake=
 - =C++11 Compiler=
