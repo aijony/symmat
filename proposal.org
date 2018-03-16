@@ -125,7 +125,7 @@ and engage with the community and my mentors.
  
 *** First Third of Summer
 
-- Finish prototyping integration with Eigen (this might prove to be one of the most difficult tasks)
+- Finish prototyping integration with Eigen
 - Extend best prototype
 - Implement most optimal data structure
 - Implement as many functions as possible 
