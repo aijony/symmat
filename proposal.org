@@ -37,7 +37,7 @@
 
 #+BEGIN_EXPORT latex
 \begin{abstract}
-Proposal for "Faster matrix algebra for ATLAS" Google Summer of Code, CERN-HSF project.
+Proposal for "Faster matrix algebra for ATLAS" Google Summer of Code, CERN-HSF Project.
 The purpose of this project is to increase the
 performance of ATLAS by optimizing its
 symmetric matrix operations.
@@ -61,7 +61,7 @@ and increase speed.
 
 The ATLAS Experiment uses Eigen extensively.
 However, Eigen handles symmetric matrices inefficiently.
-Since a large portion of Atlas' algorithms are made up of symmetric matrices,
+Since a large portion of ATLAS' algorithms are made up of symmetric matrices,
 this project is able to optimize a large niche in the code.
 By implementing a symmetric matrix class,
 the storage space, and the complexity of certain algorithms like addition
