@@ -59,17 +59,17 @@ and increase speed.
 
 ** Introduction
 
-The Atlas Project uses Eigen extensively.
+The ATLAS Experiment uses Eigen extensively.
 However, Eigen handles symmetric matrices inefficiently.
 Since a large portion of Atlas' algorithms are made up of symmetric matrices,
-this project is able to optimize a large niche in code.
+this project is able to optimize a large niche in the code.
 By implementing a symmetric matrix class,
 the storage space, and the complexity of certain algorithms like addition
 of a dense square matrix ($n \times n$) originally growing at $n^2$ becomes $\frac{n(n+1)}{2}$.
 This approaches a 50% complexity and memory decrease for larger and larger matrices.
 Of course, not all algorithms become as efficient.
 For example symmetric matrices are not generally closed under matrix multiplication,
-so it would be unreasonable to expect a dramatic speed increase.
+so it would be unreasonable to always expect a dramatic speed increase.
 However, the memory decrease alone should be more than enough to justify 
 a symmetric matrix class.
 The algorithm efficiency is just the frosting on the cake.
@@ -103,11 +103,11 @@ ready to be submitted as a patch for Eigen." - [[http://hepsoftwarefoundation.or
 
 The following is a rough outline.
 There is still some research and dialogue to be done before and during the summer.
-Many tasks might bleed back and forth through the timeline as the project progresses
-and new insights are found whilst the project progresses.
+Many tasks might bleed back and forth through the timeline
+when new insights are found whilst the project progresses.
 
 *** Pre-Summer
-The best time to get a head start in the project is right now.
+The best time to get a head start on the project is right now.
 One of the most important things I could do
 is to continue interacting with Eigen library and community.
 That way, I'll have practiced swimming before I have dive into Eigen.
@@ -164,32 +164,32 @@ I also hope to be able to answer any questions that might arise
 on as many communication platforms as I can watch.
 Any bugs that reveal themselves later in my code, I also plan to fix.
 
+
 ** Related Work
 
-Current support for symmetric matrices in Eigen are in the form of [[https://eigen.tuxfamily.org/dox/group__QuickRefPage.html#title15][views]].
-While these views support optimized algorithms,
-they do not optimize memory in anyway.
-Studying the code for these views will allow 
-insight on how to write optimal matrix algorithms.
-They might also be able to exploited so my class can use their code.
-A few days might be used to consider/implement that possibility. 
+ATLAS uses various symmetric matrices when computing charged particle tracks.
+It currently stores a lot of $5\times5$ covariant matrices, so an optimized symmetric matrix class would greatly decrease memory costs.
+It also uses the following matrix product for Kalman Filters: $A \cdot S \cdot A^{T}$,
+where $S$ is symmetric and therefore the resulting matrix is also symmetric.
+Because the resulting matrix is known to be symmetric, the matrix multiplication can be optimized by only computing the upper triangle.
 
+Current support for symmetric matrices in Eigen are in the form of [[https://eigen.tuxfamily.org/dox/group__QuickRefPage.html#title15][views]].
+While these views can support optimized algorithms,
+they do not optimize memory in anyway.
 There are other popular libraries that have somewhat implemented symmetric matrices:
 the [[https://www.gnu.org/software/gsl/manual/html_node/Real-Symmetric-Matrices.html][GNU Scientific Library]], and [[http://www.boost.org/doc/libs/1_66_0/libs/numeric/ublas/doc/symmetric.html][Boost uBLAS]].
-Both of these could have code that would prove useful to study.
-Time might be taken during the summer to study this code.
+Studying the code of these libraries will be insightful for my project.
+so a part of the timeline might be taken therefor.
 
-There is lots of academic work related to symmetric matrices.
-While I plan to find all relevant information before the summer,
-some time might be spent during the summer reviewing these resources.
+There is a lot of academic work related to symmetric matrices.
+While I plan to review all relevant information before the summer,
+some time might be spent during the summer re-analyzing these resources.
 
 ** Biographical Information
 
-I currently pursuing a B.S. in Mathematics and a B.A. in Physics.
-This project sounds more interesting than anything I could dream to do this summer.
-I have a strong passion for programming, mathematics, and physics.
+I am currently pursuing a B.S. in Mathematics and a B.A. in Physics and minoring in Computer Science.
 This project is a beautiful mixture of indirectly contributing to the physics community,
-by directly contributing to the programming community using my mathematics abilities.
+by directly contributing to the programming community by using my mathematical abilities.
 I've taken a couple of couple of linear algebra courses, and have used my programming skills,
 for recreation, open-source contribution, and paid work for a few years now.
 I have prototyped some code for this project already: [[https://github.com/aijony/symmat][github.com/aijony/symmat]]/
@@ -203,5 +203,5 @@ of my relentless passion and drive for projects like these.
 - Website (WIP): [[http://aidannyquist.com][aidannyquist.com]]
 - IRC/[[https://github.com/][GitHub]]: aijony
 - Phone: 971-237-5505
-- Address: 3580 NW Hill Rd,
+- Address (Legal/Summer): 3580 NW Hill Rd,
   McMinnville, OR 97128
